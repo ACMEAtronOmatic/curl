@@ -26,6 +26,8 @@
  * Define WIN32 when build target is Win32 API
  */
 
+#define CURL_DISABLE_CRYPTO_AUTH
+
 #if (defined(_WIN32) || defined(__WIN32__)) && !defined(WIN32) && \
     !defined(__SYMBIAN32__)
 #define WIN32

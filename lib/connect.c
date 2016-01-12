@@ -932,21 +932,21 @@ void Curl_sndbufset(curl_socket_t sockfd)
   int curlen = sizeof(curval);
   DWORD majorVersion = 6;
 
-  static int detectOsState = DETECT_OS_NONE;
+  static int detectOsState = DETECT_OS_VISTA_OR_LATER;
 
   if(detectOsState == DETECT_OS_NONE) {
-#if !defined(_WIN32_WINNT) || !defined(_WIN32_WINNT_WIN2K) || \
+#if 1 || !defined(_WIN32_WINNT) || !defined(_WIN32_WINNT_WIN2K) || \
     (_WIN32_WINNT < _WIN32_WINNT_WIN2K)
-    OSVERSIONINFO osver;
+    //OSVERSIONINFO osver;
 
-    memset(&osver, 0, sizeof(osver));
-    osver.dwOSVersionInfoSize = sizeof(osver);
+    //memset(&osver, 0, sizeof(osver));
+    //osver.dwOSVersionInfoSize = sizeof(osver);
 
-    detectOsState = DETECT_OS_PREVISTA;
-    if(GetVersionEx(&osver)) {
-      if(osver.dwMajorVersion >= majorVersion)
-        detectOsState = DETECT_OS_VISTA_OR_LATER;
-    }
+    //detectOsState = DETECT_OS_PREVISTA;
+    //if(GetVersionEx(&osver)) {
+    //  if(osver.dwMajorVersion >= majorVersion)
+    //    detectOsState = DETECT_OS_VISTA_OR_LATER;
+    //}
 #else
     ULONGLONG cm;
     OSVERSIONINFOEX osver;

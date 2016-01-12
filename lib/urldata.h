@@ -1051,7 +1051,7 @@ struct connectdata {
     struct smtp_conn smtpc;
     struct rtsp_conn rtspc;
     struct smb_conn smbc;
-    void *generic; /* RTMP and LDAP use this */
+    void *genericp; /* RTMP and LDAP use this */
   } proto;
 
   int cselect_bits; /* bitmask of socket events */
