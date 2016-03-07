@@ -4509,15 +4509,15 @@ static char *detect_proxy(struct connectdata *conn)
   char *no_proxy=NULL;
   char proxy_env[128];
 
-  no_proxy=curl_getenv("no_proxy");
-  if(!no_proxy)
-    no_proxy=curl_getenv("NO_PROXY");
+  //no_proxy=curl_getenv("no_proxy");
+  //if(!no_proxy)
+  //  no_proxy=curl_getenv("NO_PROXY");
 
   if(!check_noproxy(conn->host.name, no_proxy)) {
     /* It was not listed as without proxy */
     const char *protop = conn->handler->scheme;
     char *envp = proxy_env;
-    char *prox;
+    char *prox = NULL;
 
     /* Now, build <protocol>_proxy and check for such a one to use */
     while(*protop)
@@ -4527,7 +4527,7 @@ static char *detect_proxy(struct connectdata *conn)
     strcpy(envp, "_proxy");
 
     /* read the protocol proxy: */
-    prox=curl_getenv(proxy_env);
+    //prox=curl_ (proxy_env);
 
     /*
      * We don't try the uppercase version of HTTP_PROXY because of
@@ -4544,15 +4544,15 @@ static char *detect_proxy(struct connectdata *conn)
     if(!prox && !Curl_raw_equal("http_proxy", proxy_env)) {
       /* There was no lowercase variable, try the uppercase version: */
       Curl_strntoupper(proxy_env, proxy_env, sizeof(proxy_env));
-      prox=curl_getenv(proxy_env);
+      //prox=curl_getenv(proxy_env);
     }
 
     if(prox)
       proxy = prox; /* use this */
     else {
-      proxy = curl_getenv("all_proxy"); /* default proxy to use */
-      if(!proxy)
-        proxy=curl_getenv("ALL_PROXY");
+      //proxy = curl_getenv("all_proxy"); /* default proxy to use */
+      //if(!proxy)
+      //  proxy=curl_getenv("ALL_PROXY");
     }
   } /* if(!check_noproxy(conn->host.name, no_proxy)) - it wasn't specified
        non-proxy */
@@ -5150,27 +5150,27 @@ static CURLcode override_login(struct SessionHandle *data,
   }
 
   conn->bits.netrc = FALSE;
-  if(data->set.use_netrc != CURL_NETRC_IGNORED) {
-    int ret = Curl_parsenetrc(conn->host.name,
-                              userp, passwdp,
-                              data->set.str[STRING_NETRC_FILE]);
-    if(ret > 0) {
-      infof(data, "Couldn't find host %s in the "
-            DOT_CHAR "netrc file; using defaults\n",
-            conn->host.name);
-    }
-    else if(ret < 0 ) {
-      return CURLE_OUT_OF_MEMORY;
-    }
-    else {
-      /* set bits.netrc TRUE to remember that we got the name from a .netrc
-         file, so that it is safe to use even if we followed a Location: to a
-         different host or similar. */
-      conn->bits.netrc = TRUE;
+  //if(data->set.use_netrc != CURL_NETRC_IGNORED) {
+  //  int ret = Curl_parsenetrc(conn->host.name,
+  //                            userp, passwdp,
+  //                            data->set.str[STRING_NETRC_FILE]);
+  //  if(ret > 0) {
+  //    infof(data, "Couldn't find host %s in the "
+  //          DOT_CHAR "netrc file; using defaults\n",
+  //          conn->host.name);
+  //  }
+  //  else if(ret < 0 ) {
+  //    return CURLE_OUT_OF_MEMORY;
+  //  }
+  //  else {
+  //    /* set bits.netrc TRUE to remember that we got the name from a .netrc
+  //       file, so that it is safe to use even if we followed a Location: to a
+  //       different host or similar. */
+  //    conn->bits.netrc = TRUE;
 
-      conn->bits.user_passwd = TRUE; /* enable user+password */
-    }
-  }
+  //    conn->bits.user_passwd = TRUE; /* enable user+password */
+  //  }
+  //}
 
   return CURLE_OK;
 }
